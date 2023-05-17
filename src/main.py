@@ -12,6 +12,7 @@ class Game:
         self.snake = Snake()
         self.food = Food()
         self.running = True
+        self.score = 0
 
     def handle_events(self):
         for event in pygame.event.get():
@@ -33,6 +34,7 @@ class Game:
         if self.snake.eat(self.food.position):
             self.snake.grow()
             self.food.generate()
+            self.score += 1
 
         if self.snake.check_collision():
             self.running = False
@@ -41,6 +43,8 @@ class Game:
         self.window.fill(BLACK)
         self.snake.draw(self.window)
         self.food.draw(self.window)
+        score_text = pygame.font.Font(None, 36).render("Score: " + str(self.score), True, (255, 255, 255))
+        self.window.blit(score_text, (10, 10))
         pygame.display.flip()
 
     def run(self):

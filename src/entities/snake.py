@@ -5,6 +5,7 @@ class Snake:
     def __init__(self):
         self.body = [(WIDTH // 2, HEIGHT // 2)]
         self.direction = pygame.K_RIGHT
+        self.score = 0
 
     def move(self):
         x, y = self.body[0]
@@ -20,8 +21,12 @@ class Snake:
         self.body.pop()
 
     def change_direction(self, new_direction):
-        opposite_directions = {pygame.K_UP: pygame.K_DOWN, pygame.K_DOWN: pygame.K_UP,
-                               pygame.K_LEFT: pygame.K_RIGHT, pygame.K_RIGHT: pygame.K_LEFT}
+        opposite_directions = {
+            pygame.K_UP: pygame.K_DOWN,
+            pygame.K_DOWN: pygame.K_UP,
+            pygame.K_LEFT: pygame.K_RIGHT,
+            pygame.K_RIGHT: pygame.K_LEFT
+        }
         if new_direction != opposite_directions.get(self.direction):
             self.direction = new_direction
 
@@ -51,3 +56,7 @@ class Snake:
         elif self.direction == pygame.K_RIGHT:
             x -= BLOCK_SIZE
         self.body.append((x, y))
+        self.score += 1
+
+    def get_score(self):
+        return self.score
